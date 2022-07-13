@@ -91,33 +91,43 @@ namespace AgendaPacientes
         //botao de cadastrar
         private void button1_Click(object sender, EventArgs e)
         {
-            try
+            //Codigo para prevenir usuario de cadastrar dados em branco no programa:
+            if ((textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "" || maskedTextBox3.Text == ""))
+                //Os demais dados que não foram incluidos por não serem essenciais para o cadastro de um paciente.
             {
-                if (textBox7.ReadOnly == false)
-                {
-                    Limpar();
-                    InativarCampos();
-                }
-                else
-                {
-                    string nome = textBox1.Text;//Coletando o dado do campo nome
-                    string convenio = textBox2.Text;//Coletando o dado do campo convenio
-                    string tratamento = textBox3.Text;//Coletando o dado do campo tratamento
-                    string lugar = textBox4.Text;//Coletando o dado do campo lugar
-                    string telefone = maskedTextBox3.Text;//Coletando o dado do campo telefone
-                    string horario = maskedTextBox1.Text;//Coletnado o dado do camoo Horario
-                    string dias = textBox5.Text;//Coletando o dado do campo dias
-                    string cpf = maskedTextBox4.Text;//Coletando o dado do campo CPF
-                    string imposto = textBox6.Text;//Coletando o dado do campo imposto
-                    string divida = maskedTextBox5.Text;//Coletando o dado do campo divida
-                    paciente.Inserir(nome, convenio, tratamento, lugar, telefone, horario, dias, cpf, imposto, divida);//Inserir no banco os dados do formulário
-                    Limpar();//limpa os campos
-                }//fim do if/else
+                MessageBox.Show("Não é possível cadastrar sem os campos obrigatórios preenchidos. Por favor preencha-os.");
             }
-            catch (Exception erro)
+            else
             {
-                MessageBox.Show("" + erro);
-            }//fim do try/catch
+                try
+                {
+                    if (textBox7.ReadOnly == false)
+                    {
+                        Limpar();
+                        InativarCampos();
+                    }
+                    else
+                    {
+                        string nome = textBox1.Text;//Coletando o dado do campo nome
+                        string convenio = textBox2.Text;//Coletando o dado do campo convenio
+                        string tratamento = textBox3.Text;//Coletando o dado do campo tratamento
+                        string lugar = textBox4.Text;//Coletando o dado do campo lugar
+                        string telefone = maskedTextBox3.Text;//Coletando o dado do campo telefone
+                        string horario = maskedTextBox1.Text;//Coletnado o dado do camoo Horario
+                        string dias = textBox5.Text;//Coletando o dado do campo dias
+                        string cpf = maskedTextBox4.Text;//Coletando o dado do campo CPF
+                        string imposto = textBox6.Text;//Coletando o dado do campo imposto
+                        string divida = maskedTextBox5.Text;//Coletando o dado do campo divida
+                        paciente.Inserir(nome, convenio, tratamento, lugar, telefone, horario, dias, cpf, imposto, divida);//Inserir no banco os dados do formulário
+                        Limpar();//limpa os campos
+                    }//fim do if/else
+                }
+                catch (Exception erro)
+                {
+                    MessageBox.Show("" + erro);
+                }//fim do try/catch
+            }//fim da validação de preenchemento de campos
+            
         }//fim do botao cadastrar
 
         //botao de consulta
@@ -182,10 +192,10 @@ namespace AgendaPacientes
                 string atuDivida = paciente.Atualizar(Convert.ToInt32(textBox7.Text), "divida", maskedTextBox5.Text);//atualizar divida
 
                 //apos declaração, verificar se os novos dados estao atualizados
-                if ((atuNome == "Atualizado!") && (atuConvenio == "Atualizado!") && (atuTratamento == "Atualizado!")
-                    && (atuLugar == "Atualizado!") && (atuTelefone == "Atualizado!") && (atuHorario == "Atualizado!")
-                    && (atuDias == "Atualizado!") && (atuCpf == "Atualizado!") && (atuImposto == "Atualizado!")
-                    && (atuDivida == "Atualizado!"))
+                if ((atuNome == "Atualizado!") || (atuConvenio == "Atualizado!") || (atuTratamento == "Atualizado!")
+                    || (atuLugar == "Atualizado!") || (atuTelefone == "Atualizado!") || (atuHorario == "Atualizado!")
+                    || (atuDias == "Atualizado!") || (atuCpf == "Atualizado!") || (atuImposto == "Atualizado!")
+                    || (atuDivida == "Atualizado!"))
                 {
                     //se estiver tudo certo, mostra essa mensagem
                     MessageBox.Show("Atualizado com sucesso!");
@@ -209,8 +219,8 @@ namespace AgendaPacientes
         //botao para acessar a conta do usuario
         private void button6_Click(object sender, EventArgs e)
         {
-            usuario = new Usuario();
-            usuario.ShowDialog();
+            //usuario = new Usuario();
+            //usuario.ShowDialog();
         }//fim do botao conta
 
         private void textBox7_TextChanged(object sender, EventArgs e)

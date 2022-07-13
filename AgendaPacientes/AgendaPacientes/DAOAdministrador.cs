@@ -193,7 +193,7 @@ namespace AgendaPacientes
         {
             try
             {
-                string query = "delete from Adminstrador where codigo = '" + codigo + "'";
+                string query = "delete from Administrador where codigo = '" + codigo + "'";
                 MySqlCommand sql = new MySqlCommand(query, conexaoAdm);
                 string resultado = "" + sql.ExecuteNonQuery();
 

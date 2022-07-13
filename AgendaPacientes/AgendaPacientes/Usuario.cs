@@ -65,7 +65,34 @@ namespace AgendaPacientes
         //botao de atualizar usuario
         private void button2_Click(object sender, EventArgs e)
         {
-           
+            AtivarTodosOsCampos();
+            //mesmos metodos do consultar, porem acrescentar if/else:
+            if (textBox1.Text == "")//se textBox.Text (nome, no caso) esta vazio, entao preenche com os dados do banco
+            {
+                textBox2.Text = "" + adm.ConsultarNome(Convert.ToInt32(textBox1.Text));//preenchendo o campo nome
+                textBox3.Text = "" + adm.ConsultarUsuario(Convert.ToInt32(textBox1.Text));//preenchendo o campo usuario
+                textBox4.Text = "" + adm.ConsultarSenha (Convert.ToInt32(textBox1.Text));//preenchendo o campo senha
+            }
+            else//se nao estiver vazio, atualizar com novos dados:
+            {
+                //declara novas variaveis, que receberao as atualizaçoes de dados e as armazenarão
+                string atuNome = adm.Atualizar(Convert.ToInt32(textBox1.Text), "nome", textBox2.Text);//atualizar nome
+                string atuUser = adm.Atualizar(Convert.ToInt32(textBox1.Text), "usuario", textBox3.Text);//atualizar usuario
+                string atuSenha = adm.Atualizar(Convert.ToInt32(textBox1.Text), "senha", textBox4.Text);//atualizar senha
+
+                //apos declaração, verificar se os novos dados estao atualizados
+                if ((atuNome == "Atualizado!") && (atuUser == "Atualizado!") && (atuSenha == "Atualizado!"))
+                {
+                    //se estiver tudo certo, mostra essa mensagem
+                    MessageBox.Show("Atualizado com sucesso!");
+                }
+                else
+                {
+                    //se algo estiver errado, mostra essa mensagem
+                    MessageBox.Show("Não atualizado!");
+                }//fim do if/else local
+                Limpar();
+            }//fim do if/else
         }//fim do atualizar usuario
 
         //botao consultar conta
@@ -93,7 +120,7 @@ namespace AgendaPacientes
             }
             else
             {
-                textBox4.PasswordChar = '*';
+                textBox4.PasswordChar = ' ';
             }
         }//fim do mostrar senha
 
